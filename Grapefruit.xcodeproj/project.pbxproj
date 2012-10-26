@@ -1,0 +1,460 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969AA163A333900E146E8 /* Cocoa.framework */; };
+		B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29969B3163A333900E146E8 /* InfoPlist.strings */; };
+		B29969B7163A333900E146E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969B6163A333900E146E8 /* main.m */; };
+		B29969BB163A333900E146E8 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B29969B9163A333900E146E8 /* Credits.rtf */; };
+		B29969BE163A333900E146E8 /* GPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969BD163A333900E146E8 /* GPAppDelegate.m */; };
+		B29969C1163A333900E146E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B29969BF163A333900E146E8 /* MainMenu.xib */; };
+		B29969C9163A333900E146E8 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969C8163A333900E146E8 /* SenTestingKit.framework */; };
+		B29969CA163A333900E146E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969AA163A333900E146E8 /* Cocoa.framework */; };
+		B29969D2163A333900E146E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29969D0163A333900E146E8 /* InfoPlist.strings */; };
+		B29969D5163A333900E146E8 /* GrapefruitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969D4163A333900E146E8 /* GrapefruitTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B29969CB163A333900E146E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B299699D163A333900E146E8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B29969A5163A333900E146E8;
+			remoteInfo = Grapefruit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B29969A6163A333900E146E8 /* Grapefruit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapefruit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B29969AA163A333900E146E8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B29969AD163A333900E146E8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		B29969AE163A333900E146E8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B29969AF163A333900E146E8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B29969B2163A333900E146E8 /* Grapefruit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grapefruit-Info.plist"; sourceTree = "<group>"; };
+		B29969B4163A333900E146E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B29969B6163A333900E146E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B29969B8163A333900E146E8 /* Grapefruit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grapefruit-Prefix.pch"; sourceTree = "<group>"; };
+		B29969BA163A333900E146E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		B29969BC163A333900E146E8 /* GPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPAppDelegate.h; sourceTree = "<group>"; };
+		B29969BD163A333900E146E8 /* GPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPAppDelegate.m; sourceTree = "<group>"; };
+		B29969C0163A333900E146E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B29969C7163A333900E146E8 /* GrapefruitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrapefruitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B29969C8163A333900E146E8 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		B29969CF163A333900E146E8 /* GrapefruitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GrapefruitTests-Info.plist"; sourceTree = "<group>"; };
+		B29969D1163A333900E146E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B29969D3163A333900E146E8 /* GrapefruitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GrapefruitTests.h; sourceTree = "<group>"; };
+		B29969D4163A333900E146E8 /* GrapefruitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapefruitTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B29969A3163A333900E146E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B29969C3163A333900E146E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B29969C9163A333900E146E8 /* SenTestingKit.framework in Frameworks */,
+				B29969CA163A333900E146E8 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B299699B163A333900E146E8 = {
+			isa = PBXGroup;
+			children = (
+				B29969B0163A333900E146E8 /* Grapefruit */,
+				B29969CD163A333900E146E8 /* GrapefruitTests */,
+				B29969A9163A333900E146E8 /* Frameworks */,
+				B29969A7163A333900E146E8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B29969A7163A333900E146E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B29969A6163A333900E146E8 /* Grapefruit.app */,
+				B29969C7163A333900E146E8 /* GrapefruitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B29969A9163A333900E146E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B29969AA163A333900E146E8 /* Cocoa.framework */,
+				B29969C8163A333900E146E8 /* SenTestingKit.framework */,
+				B29969AC163A333900E146E8 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B29969AC163A333900E146E8 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B29969AD163A333900E146E8 /* AppKit.framework */,
+				B29969AE163A333900E146E8 /* CoreData.framework */,
+				B29969AF163A333900E146E8 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		B29969B0163A333900E146E8 /* Grapefruit */ = {
+			isa = PBXGroup;
+			children = (
+				B29969BC163A333900E146E8 /* GPAppDelegate.h */,
+				B29969BD163A333900E146E8 /* GPAppDelegate.m */,
+				B29969BF163A333900E146E8 /* MainMenu.xib */,
+				B29969B1163A333900E146E8 /* Supporting Files */,
+			);
+			path = Grapefruit;
+			sourceTree = "<group>";
+		};
+		B29969B1163A333900E146E8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B29969B2163A333900E146E8 /* Grapefruit-Info.plist */,
+				B29969B3163A333900E146E8 /* InfoPlist.strings */,
+				B29969B6163A333900E146E8 /* main.m */,
+				B29969B8163A333900E146E8 /* Grapefruit-Prefix.pch */,
+				B29969B9163A333900E146E8 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B29969CD163A333900E146E8 /* GrapefruitTests */ = {
+			isa = PBXGroup;
+			children = (
+				B29969D3163A333900E146E8 /* GrapefruitTests.h */,
+				B29969D4163A333900E146E8 /* GrapefruitTests.m */,
+				B29969CE163A333900E146E8 /* Supporting Files */,
+			);
+			path = GrapefruitTests;
+			sourceTree = "<group>";
+		};
+		B29969CE163A333900E146E8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B29969CF163A333900E146E8 /* GrapefruitTests-Info.plist */,
+				B29969D0163A333900E146E8 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B29969A5163A333900E146E8 /* Grapefruit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B29969D8163A333900E146E8 /* Build configuration list for PBXNativeTarget "Grapefruit" */;
+			buildPhases = (
+				B29969A2163A333900E146E8 /* Sources */,
+				B29969A3163A333900E146E8 /* Frameworks */,
+				B29969A4163A333900E146E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Grapefruit;
+			productName = Grapefruit;
+			productReference = B29969A6163A333900E146E8 /* Grapefruit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B29969C6163A333900E146E8 /* GrapefruitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B29969DB163A333900E146E8 /* Build configuration list for PBXNativeTarget "GrapefruitTests" */;
+			buildPhases = (
+				B29969C2163A333900E146E8 /* Sources */,
+				B29969C3163A333900E146E8 /* Frameworks */,
+				B29969C4163A333900E146E8 /* Resources */,
+				B29969C5163A333900E146E8 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B29969CC163A333900E146E8 /* PBXTargetDependency */,
+			);
+			name = GrapefruitTests;
+			productName = GrapefruitTests;
+			productReference = B29969C7163A333900E146E8 /* GrapefruitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B299699D163A333900E146E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = GP;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Shoumik Palkar";
+			};
+			buildConfigurationList = B29969A0163A333900E146E8 /* Build configuration list for PBXProject "Grapefruit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B299699B163A333900E146E8;
+			productRefGroup = B29969A7163A333900E146E8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B29969A5163A333900E146E8 /* Grapefruit */,
+				B29969C6163A333900E146E8 /* GrapefruitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B29969A4163A333900E146E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */,
+				B29969BB163A333900E146E8 /* Credits.rtf in Resources */,
+				B29969C1163A333900E146E8 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B29969C4163A333900E146E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B29969D2163A333900E146E8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B29969C5163A333900E146E8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B29969A2163A333900E146E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B29969B7163A333900E146E8 /* main.m in Sources */,
+				B29969BE163A333900E146E8 /* GPAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B29969C2163A333900E146E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B29969D5163A333900E146E8 /* GrapefruitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B29969CC163A333900E146E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B29969A5163A333900E146E8 /* Grapefruit */;
+			targetProxy = B29969CB163A333900E146E8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B29969B3163A333900E146E8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B29969B4163A333900E146E8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B29969B9163A333900E146E8 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B29969BA163A333900E146E8 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		B29969BF163A333900E146E8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B29969C0163A333900E146E8 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		B29969D0163A333900E146E8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B29969D1163A333900E146E8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B29969D6163A333900E146E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B29969D7163A333900E146E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B29969D9163A333900E146E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
+				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B29969DA163A333900E146E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
+				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		B29969DC163A333900E146E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grapefruit.app/Contents/MacOS/Grapefruit";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
+				INFOPLIST_FILE = "GrapefruitTests/GrapefruitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		B29969DD163A333900E146E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Grapefruit.app/Contents/MacOS/Grapefruit";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
+				INFOPLIST_FILE = "GrapefruitTests/GrapefruitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B29969A0163A333900E146E8 /* Build configuration list for PBXProject "Grapefruit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B29969D6163A333900E146E8 /* Debug */,
+				B29969D7163A333900E146E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B29969D8163A333900E146E8 /* Build configuration list for PBXNativeTarget "Grapefruit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B29969D9163A333900E146E8 /* Debug */,
+				B29969DA163A333900E146E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B29969DB163A333900E146E8 /* Build configuration list for PBXNativeTarget "GrapefruitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B29969DC163A333900E146E8 /* Debug */,
+				B29969DD163A333900E146E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B299699D163A333900E146E8 /* Project object */;
+}
