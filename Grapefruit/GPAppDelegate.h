@@ -9,12 +9,17 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 
+enum {
+    kLaunchWindowID,
+    kLaunchDefaultID,
+};
+
 @interface GPAppDelegate : NSObject <NSApplicationDelegate> {
-    EventHandlerRef trackKeyGlobal;
+    EventHandlerRef trackKeyKeyboard;
+    EventHandlerRef trackKeyTextInput;
+    EventHotKeyRef hotKeyRef;
 }
 
 @property (assign) IBOutlet NSWindow *window;
-
--(void)becomeActive;
 
 @end

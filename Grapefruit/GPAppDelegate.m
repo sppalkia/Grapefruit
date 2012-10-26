@@ -11,70 +11,32 @@
 #import "GPAppDelegate.h"
 #import "iTunes.h"
 
-
 @implementation GPAppDelegate
 
-OSStatus keyHandler(EventHandlerCallRef nextHandler, EventRef event, void* userData);
+OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef event, void* userData);
 
 #pragma mark - OS
 
+
 OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
                             event, void *userData) {
-    
-    NSLog(@"Handler Called");
-    
-    static UInt32 modifiers = 0;
-    BOOL correctKeyPressed = NO;
-    
+        
     if (GetEventClass(event) != kEventClassKeyboard) {
         NSLog(@"Not a Key Event");
     }
     
     switch(GetEventKind(event)) {
-        case kEventRawKeyDown: {
-            UInt32 keyCode;
-            GetEventParameter(event,
-                              kEventParamKeyUnicodes,
-                              typeUInt32,
-                              NULL,
-                              sizeof(UInt32),
-                              NULL,
-                              &keyCode);
-            
-            NSLog(@"%x", keyCode);
-            NSLog(@"Key Event Recieved");
-            correctKeyPressed = (keyCode == 0x64);
-        }
-        case kEventRawKeyModifiersChanged: {
-            
-            NSLog(@"Modifier Event Recieved");
-            
-            UInt32 newModifiers;
-            GetEventParameter(event,
-                              kEventParamKeyModifiers,
-                              typeUInt32,
-                              NULL,
-                              sizeof(UInt32),
-                              NULL,
-                              &newModifiers);
-            
-            UInt32 changed = modifiers ^ newModifiers;
-            
-            if ((changed & (controlKey | rightControlKey)) != 0) {
-                if ((modifiers & (controlKey | rightControlKey)) == 0) {
-                    //Handle Control Press Here
-                }
+        case kEventHotKeyPressed: {
+            NSRunningApplication *currentApplication = [NSRunningApplication currentApplication];
+            if ([currentApplication isActive]) {
+                [currentApplication hide];
             }
-            
-            modifiers = newModifiers;
+            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+
             
         } break;
         default:
             break;
-    }
-    
-    if (((modifiers & (controlKey | rightControlKey)) != 0) && correctKeyPressed) {
-        [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
     }
     
     return CallNextEventHandler(nextHandler, event);
@@ -86,28 +48,36 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
     return NO;
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    //Add in a global handler
-    EventTypeSpec globalEventType[2];
-    globalEventType[0].eventClass = kEventClassKeyboard;
-    globalEventType[0].eventKind = kEventRawKeyDown;
-    globalEventType[1].eventClass = kEventClassKeyboard;
-    globalEventType[1].eventKind = kEventRawKeyModifiersChanged;
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
-    EventHandlerUPP globalHandlerFunction = NewEventHandlerUPP(keystrokeActivated);
-    InstallEventHandler(GetEventMonitorTarget(), globalHandlerFunction, 2, globalEventType, NULL, &trackKeyGlobal);
+    [self.window setHidesOnDeactivate:YES];
+    [self.window becomeKeyWindow];
+    [self.window becomeMainWindow];
+    
+    //Add in a global handler
+    EventTypeSpec keyboardEventSpec[1];
+    EventHotKeyID hotKeyID;
+    
+    keyboardEventSpec[0].eventClass = kEventClassKeyboard;
+    keyboardEventSpec[0].eventKind = kEventHotKeyPressed;
+    
+    InstallApplicationEventHandler(&keystrokeActivated, 1, keyboardEventSpec, NULL, NULL);
+    
+    hotKeyID.signature = 'htk1';
+    hotKeyID.id = 1;
+
+    RegisterEventHotKey(0x2e, cmdKey+optionKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
+}
+
+-(void)applicationWillResignActive:(NSNotification *)notification {
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    RemoveEventHandler(trackKeyGlobal);
+    RemoveEventHandler(trackKeyKeyboard);
+    RemoveEventHandler(trackKeyTextInput);
 }
 
 #pragma Implementation
-
--(void)becomeActive {
-    //faites quelque chose
-}
 
 - (void)dealloc {
     [super dealloc];
