@@ -17,7 +17,24 @@
 		B29969CA163A333900E146E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969AA163A333900E146E8 /* Cocoa.framework */; };
 		B29969D2163A333900E146E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29969D0163A333900E146E8 /* InfoPlist.strings */; };
 		B29969D5163A333900E146E8 /* GrapefruitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969D4163A333900E146E8 /* GrapefruitTests.m */; };
+		B29969E7163A357600E146E8 /* iTunes.app in Resources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
+		B29969E8163A35CC00E146E8 /* iTunes.app in Sources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
+		B29969EA163A35FE00E146E8 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		B29969E5163A34A200E146E8 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.app";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE).h",
+			);
+			script = "sdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		B29969CB163A333900E146E8 /* PBXContainerItemProxy */ = {
@@ -49,6 +66,8 @@
 		B29969D1163A333900E146E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B29969D3163A333900E146E8 /* GrapefruitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GrapefruitTests.h; sourceTree = "<group>"; };
 		B29969D4163A333900E146E8 /* GrapefruitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapefruitTests.m; sourceTree = "<group>"; };
+		B29969E6163A357600E146E8 /* iTunes.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = iTunes.app; path = ../../../../Applications/iTunes.app; sourceTree = "<group>"; };
+		B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B29969EA163A35FE00E146E8 /* ScriptingBridge.framework in Frameworks */,
 				B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,6 +95,7 @@
 		B299699B163A333900E146E8 = {
 			isa = PBXGroup;
 			children = (
+				B29969E6163A357600E146E8 /* iTunes.app */,
 				B29969B0163A333900E146E8 /* Grapefruit */,
 				B29969CD163A333900E146E8 /* GrapefruitTests */,
 				B29969A9163A333900E146E8 /* Frameworks */,
@@ -94,6 +115,7 @@
 		B29969A9163A333900E146E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */,
 				B29969AA163A333900E146E8 /* Cocoa.framework */,
 				B29969C8163A333900E146E8 /* SenTestingKit.framework */,
 				B29969AC163A333900E146E8 /* Other Frameworks */,
@@ -114,6 +136,8 @@
 		B29969B0163A333900E146E8 /* Grapefruit */ = {
 			isa = PBXGroup;
 			children = (
+				B29969DF163A337200E146E8 /* external */,
+				B29969DE163A336F00E146E8 /* src */,
 				B29969BC163A333900E146E8 /* GPAppDelegate.h */,
 				B29969BD163A333900E146E8 /* GPAppDelegate.m */,
 				B29969BF163A333900E146E8 /* MainMenu.xib */,
@@ -125,6 +149,7 @@
 		B29969B1163A333900E146E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B29969E0163A337900E146E8 /* media */,
 				B29969B2163A333900E146E8 /* Grapefruit-Info.plist */,
 				B29969B3163A333900E146E8 /* InfoPlist.strings */,
 				B29969B6163A333900E146E8 /* main.m */,
@@ -153,6 +178,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B29969DE163A336F00E146E8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		B29969DF163A337200E146E8 /* external */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		B29969E0163A337900E146E8 /* media */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = media;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -165,6 +211,7 @@
 				B29969A4163A333900E146E8 /* Resources */,
 			);
 			buildRules = (
+				B29969E5163A34A200E146E8 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -228,6 +275,7 @@
 				B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */,
 				B29969BB163A333900E146E8 /* Credits.rtf in Resources */,
 				B29969C1163A333900E146E8 /* MainMenu.xib in Resources */,
+				B29969E7163A357600E146E8 /* iTunes.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +312,7 @@
 			files = (
 				B29969B7163A333900E146E8 /* main.m in Sources */,
 				B29969BE163A333900E146E8 /* GPAppDelegate.m in Sources */,
+				B29969E8163A35CC00E146E8 /* iTunes.app in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +428,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
 				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -391,6 +441,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
 				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

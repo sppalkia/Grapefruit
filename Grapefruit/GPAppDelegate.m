@@ -6,17 +6,19 @@
 //  Copyright (c) 2012 Shoumik Palkar. All rights reserved.
 //
 
+
+#import <CoreServices/CoreServices.h>
 #import "GPAppDelegate.h"
+#import "iTunes.h"
+
 
 @implementation GPAppDelegate
 
-- (void)dealloc
-{
+- (void)dealloc {
     [super dealloc];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
 }
 
