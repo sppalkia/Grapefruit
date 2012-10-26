@@ -20,6 +20,7 @@
 		B29969E7163A357600E146E8 /* iTunes.app in Resources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
 		B29969E8163A35CC00E146E8 /* iTunes.app in Sources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
 		B29969EA163A35FE00E146E8 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		B29969EF163A417400E146E8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969EE163A417300E146E8 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -68,6 +69,7 @@
 		B29969D4163A333900E146E8 /* GrapefruitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapefruitTests.m; sourceTree = "<group>"; };
 		B29969E6163A357600E146E8 /* iTunes.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = iTunes.app; path = ../../../../Applications/iTunes.app; sourceTree = "<group>"; };
 		B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		B29969EE163A417300E146E8 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B29969EF163A417400E146E8 /* Carbon.framework in Frameworks */,
 				B29969EA163A35FE00E146E8 /* ScriptingBridge.framework in Frameworks */,
 				B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */,
 			);
@@ -115,6 +118,7 @@
 		B29969A9163A333900E146E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B29969EE163A417300E146E8 /* Carbon.framework */,
 				B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */,
 				B29969AA163A333900E146E8 /* Cocoa.framework */,
 				B29969C8163A333900E146E8 /* SenTestingKit.framework */,
@@ -136,11 +140,11 @@
 		B29969B0163A333900E146E8 /* Grapefruit */ = {
 			isa = PBXGroup;
 			children = (
-				B29969DF163A337200E146E8 /* external */,
-				B29969DE163A336F00E146E8 /* src */,
 				B29969BC163A333900E146E8 /* GPAppDelegate.h */,
 				B29969BD163A333900E146E8 /* GPAppDelegate.m */,
 				B29969BF163A333900E146E8 /* MainMenu.xib */,
+				B29969DF163A337200E146E8 /* external */,
+				B29969DE163A336F00E146E8 /* src */,
 				B29969B1163A333900E146E8 /* Supporting Files */,
 			);
 			path = Grapefruit;

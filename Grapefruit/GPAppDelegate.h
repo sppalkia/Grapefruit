@@ -7,9 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
 
-@interface GPAppDelegate : NSObject <NSApplicationDelegate>
+@interface GPAppDelegate : NSObject <NSApplicationDelegate> {
+    EventHandlerRef trackKeyGlobal;
+}
 
 @property (assign) IBOutlet NSWindow *window;
+
+-(void)becomeActive;
 
 @end
