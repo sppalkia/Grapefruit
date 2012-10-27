@@ -11,5 +11,23 @@
 @implementation GPMainView
 @synthesize searchField;
 
+-(void)awakeFromNib {
+    self.searchField.delegate = self;
+}
+
+#pragma mark - NSTextFieldDelegate 
+
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
+    
+    BOOL handle = NO;
+    
+    if (command == @selector(cancelOperation:)) {
+        [GPAppDelegate toggleState:GPApplicationStateInactive];
+        handle = YES;
+    }
+
+    return handle;
+}
+
 
 @end
