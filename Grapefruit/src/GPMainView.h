@@ -11,8 +11,13 @@
 
 
 @interface GPMainView : NSView <NSTextFieldDelegate> {
+    iTunesSource *_library;
+    NSOperationQueue *_searchOperationQueue;
 }
 
 @property(assign) IBOutlet NSSearchField *searchField;
+
+-(void)validateLibrary;
+-(void)search;
 
 @end

@@ -24,7 +24,7 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
                             event, void *userData) {
         
     if (GetEventClass(event) != kEventClassKeyboard) {
-        NSLog(@"Not a Key Event");
+        NSLogDebug(@"Not a Key Event");
     }
     
     switch(GetEventKind(event)) {
@@ -74,12 +74,7 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
     RemoveEventHandler(trackKeyTextInput);
 }
 
--(void)applicationWillHide:(NSNotification *)notification {
-    NSLogDebug(@"application will hide");
-}
-
 -(void)applicationWillResignActive:(NSNotification *)notification {
-    NSLogDebug(@"application will resign active");
     NSApplication *application = [NSApplication sharedApplication];
     if (![application isHidden]) {
         [application hide:this];
