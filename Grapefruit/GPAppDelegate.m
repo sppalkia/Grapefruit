@@ -20,7 +20,6 @@ static id this = nil;
 
 #pragma mark - OS
 
-
 OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
                             event, void *userData) {
         

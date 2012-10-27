@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B20DDB51163B5B8E00324675 /* GPMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B20DDB50163B5B8E00324675 /* GPMainView.m */; };
+		B20DDB61163B705E00324675 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20DDB60163B705E00324675 /* ScriptingBridge.framework */; };
 		B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969AA163A333900E146E8 /* Cocoa.framework */; };
 		B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29969B3163A333900E146E8 /* InfoPlist.strings */; };
 		B29969B7163A333900E146E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969B6163A333900E146E8 /* main.m */; };
@@ -18,9 +19,7 @@
 		B29969CA163A333900E146E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969AA163A333900E146E8 /* Cocoa.framework */; };
 		B29969D2163A333900E146E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29969D0163A333900E146E8 /* InfoPlist.strings */; };
 		B29969D5163A333900E146E8 /* GrapefruitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969D4163A333900E146E8 /* GrapefruitTests.m */; };
-		B29969E7163A357600E146E8 /* iTunes.app in Resources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
 		B29969E8163A35CC00E146E8 /* iTunes.app in Sources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
-		B29969EA163A35FE00E146E8 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B29969EF163A417400E146E8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969EE163A417300E146E8 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +50,7 @@
 /* Begin PBXFileReference section */
 		B20DDB4F163B5B8E00324675 /* GPMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPMainView.h; path = src/GPMainView.h; sourceTree = "<group>"; };
 		B20DDB50163B5B8E00324675 /* GPMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPMainView.m; path = src/GPMainView.m; sourceTree = "<group>"; };
+		B20DDB60163B705E00324675 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		B29969A6163A333900E146E8 /* Grapefruit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapefruit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29969AA163A333900E146E8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B29969AD163A333900E146E8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -71,7 +71,6 @@
 		B29969D3163A333900E146E8 /* GrapefruitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GrapefruitTests.h; sourceTree = "<group>"; };
 		B29969D4163A333900E146E8 /* GrapefruitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrapefruitTests.m; sourceTree = "<group>"; };
 		B29969E6163A357600E146E8 /* iTunes.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = iTunes.app; path = ../../../../Applications/iTunes.app; sourceTree = "<group>"; };
-		B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		B29969EE163A417300E146E8 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -80,8 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20DDB61163B705E00324675 /* ScriptingBridge.framework in Frameworks */,
 				B29969EF163A417400E146E8 /* Carbon.framework in Frameworks */,
-				B29969EA163A35FE00E146E8 /* ScriptingBridge.framework in Frameworks */,
 				B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,10 +120,9 @@
 		B29969A9163A333900E146E8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B20DDB60163B705E00324675 /* ScriptingBridge.framework */,
 				B29969EE163A417300E146E8 /* Carbon.framework */,
-				B29969E9163A35FE00E146E8 /* ScriptingBridge.framework */,
 				B29969AA163A333900E146E8 /* Cocoa.framework */,
-				B29969C8163A333900E146E8 /* SenTestingKit.framework */,
 				B29969AC163A333900E146E8 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -133,6 +131,7 @@
 		B29969AC163A333900E146E8 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B29969C8163A333900E146E8 /* SenTestingKit.framework */,
 				B29969AD163A333900E146E8 /* AppKit.framework */,
 				B29969AE163A333900E146E8 /* CoreData.framework */,
 				B29969AF163A333900E146E8 /* Foundation.framework */,
@@ -284,7 +283,6 @@
 				B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */,
 				B29969BB163A333900E146E8 /* Credits.rtf in Resources */,
 				B29969C1163A333900E146E8 /* MainMenu.xib in Resources */,
-				B29969E7163A357600E146E8 /* iTunes.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

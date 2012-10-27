@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "iTunes.h"
+
 
 @interface GPMainView : NSView <NSTextFieldDelegate> {
-    
 }
 
 @property(assign) IBOutlet NSSearchField *searchField;
