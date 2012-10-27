@@ -4,4 +4,14 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+    #import "GPAppDelegate.h"
 #endif
+
+#ifdef DEBUG
+#define NSLogDebug(format, ...) \
+NSLog(@"<%s:%d> %s, " format, \
+strrchr("/" __FILE__, '/') + 1, __LINE__, __PRETTY_FUNCTION__, ## __VA_ARGS__)
+#else
+#define NSLogDebug(format, ...)
+#endif
+

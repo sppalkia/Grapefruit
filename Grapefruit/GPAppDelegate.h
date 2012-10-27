@@ -14,6 +14,12 @@ enum {
     kLaunchDefaultID,
 };
 
+typedef enum {
+    GPApplicationStateActive,
+    GPApplicationStateInactive,
+    GPApplicationStateToggle,
+} GPApplicationState;
+
 @interface GPAppDelegate : NSObject <NSApplicationDelegate> {
     EventHandlerRef trackKeyKeyboard;
     EventHandlerRef trackKeyTextInput;
@@ -21,5 +27,7 @@ enum {
 }
 
 @property (assign) IBOutlet NSWindow *window;
+
++(BOOL)toggleState:(GPApplicationState)state;
 
 @end

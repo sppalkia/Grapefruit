@@ -12,8 +12,11 @@
 #import "iTunes.h"
 
 @implementation GPAppDelegate
+@synthesize window;
 
 OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef event, void* userData);
+
+static id this = nil;
 
 #pragma mark - OS
 
@@ -27,12 +30,7 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
     
     switch(GetEventKind(event)) {
         case kEventHotKeyPressed: {
-            NSRunningApplication *currentApplication = [NSRunningApplication currentApplication];
-            if ([currentApplication isActive]) {
-                [currentApplication hide];
-            }
-            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
-
+            [GPAppDelegate toggleState:GPApplicationStateToggle];
             
         } break;
         default:
@@ -49,6 +47,8 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
+    this = self;
     
     [self.window setHidesOnDeactivate:YES];
     [self.window becomeKeyWindow];
@@ -67,9 +67,7 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
     hotKeyID.id = 1;
 
     RegisterEventHotKey(0x2e, cmdKey+optionKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
-}
-
--(void)applicationWillResignActive:(NSNotification *)notification {
+    
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -77,9 +75,51 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
     RemoveEventHandler(trackKeyTextInput);
 }
 
+-(void)applicationWillHide:(NSNotification *)notification {
+    NSLogDebug(@"application will hide");
+}
+
+-(void)applicationWillResignActive:(NSNotification *)notification {
+    NSLogDebug(@"application will resign active");
+    NSApplication *application = [NSApplication sharedApplication];
+    if (![application isHidden]) {
+        [application hide:this];
+    }
+}
+
 #pragma Implementation
 
++(BOOL)toggleState:(GPApplicationState)state {
+    NSApplication *application = [NSApplication sharedApplication];
+    
+    BOOL active = NO;
+    
+    switch (state) {
+        case GPApplicationStateToggle: {
+            if ([application isHidden]) {
+                [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+                active = YES; 
+            }
+            else {
+                [[NSApplication sharedApplication] hide:this];
+            }
+        } break;
+        case GPApplicationStateActive: {
+            [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+            active = YES;
+        } break;
+        
+        case GPApplicationStateInactive:
+        default: {
+            [[NSApplication sharedApplication] hide:this];
+        } break;
+    }
+    
+    return active;
+}
+
 - (void)dealloc {
+    self.window = nil;
     [super dealloc];
 }
 
