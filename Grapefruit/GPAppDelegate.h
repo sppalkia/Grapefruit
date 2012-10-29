@@ -20,13 +20,15 @@ typedef enum {
     GPApplicationStateToggle,
 } GPApplicationState;
 
+@class GPMainWindowController;
 @interface GPAppDelegate : NSObject <NSApplicationDelegate> {
     EventHandlerRef trackKeyKeyboard;
     EventHandlerRef trackKeyTextInput;
     EventHotKeyRef hotKeyRef;
-}
+    
+    GPMainWindowController *_mainWindowController;
 
-@property (assign) IBOutlet NSWindow *window;
+}
 
 +(BOOL)toggleState:(GPApplicationState)state;
 

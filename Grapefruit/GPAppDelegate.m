@@ -9,10 +9,10 @@
 
 #import <CoreServices/CoreServices.h>
 #import "GPAppDelegate.h"
+#import "GPMainWindowController.h"
 #import "iTunes.h"
 
 @implementation GPAppDelegate
-@synthesize window;
 
 OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef event, void* userData);
 
@@ -49,10 +49,11 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
     
     this = self;
     
-    [self.window setHidesOnDeactivate:YES];
-    [self.window becomeKeyWindow];
-    [self.window becomeMainWindow];
-    
+    _mainWindowController = [[GPMainWindowController alloc] initWithWindowNibName:@"GPMainWindow"];
+    [_mainWindowController.window setHidesOnDeactivate:YES];
+    [_mainWindowController.window becomeKeyWindow];
+    [_mainWindowController.window becomeMainWindow];
+        
     //Add in a global handler
     EventTypeSpec keyboardEventSpec[1];
     EventHotKeyID hotKeyID;
@@ -113,7 +114,7 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
 }
 
 - (void)dealloc {
-    self.window = nil;
+    [_mainWindowController release];
     [super dealloc];
 }
 

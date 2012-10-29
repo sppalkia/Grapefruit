@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B20DDB51163B5B8E00324675 /* GPMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B20DDB50163B5B8E00324675 /* GPMainView.m */; };
 		B20DDB61163B705E00324675 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20DDB60163B705E00324675 /* ScriptingBridge.framework */; };
+		B2544416163E16BE00955CBC /* GPMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2544415163E16BE00955CBC /* GPMainWindowController.m */; };
+		B2544419163E175000955CBC /* GPMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2544418163E175000955CBC /* GPMainWindow.xib */; };
 		B29969AB163A333900E146E8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969AA163A333900E146E8 /* Cocoa.framework */; };
 		B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29969B3163A333900E146E8 /* InfoPlist.strings */; };
 		B29969B7163A333900E146E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B29969B6163A333900E146E8 /* main.m */; };
@@ -51,6 +53,9 @@
 		B20DDB4F163B5B8E00324675 /* GPMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPMainView.h; path = src/GPMainView.h; sourceTree = "<group>"; };
 		B20DDB50163B5B8E00324675 /* GPMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPMainView.m; path = src/GPMainView.m; sourceTree = "<group>"; };
 		B20DDB60163B705E00324675 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		B2544414163E16BE00955CBC /* GPMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPMainWindowController.h; sourceTree = "<group>"; };
+		B2544415163E16BE00955CBC /* GPMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPMainWindowController.m; sourceTree = "<group>"; };
+		B2544418163E175000955CBC /* GPMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPMainWindow.xib; sourceTree = "<group>"; };
 		B29969A6163A333900E146E8 /* Grapefruit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapefruit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29969AA163A333900E146E8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B29969AD163A333900E146E8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -189,6 +194,9 @@
 			children = (
 				B20DDB4F163B5B8E00324675 /* GPMainView.h */,
 				B20DDB50163B5B8E00324675 /* GPMainView.m */,
+				B2544414163E16BE00955CBC /* GPMainWindowController.h */,
+				B2544415163E16BE00955CBC /* GPMainWindowController.m */,
+				B2544418163E175000955CBC /* GPMainWindow.xib */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -283,6 +291,7 @@
 				B29969B5163A333900E146E8 /* InfoPlist.strings in Resources */,
 				B29969BB163A333900E146E8 /* Credits.rtf in Resources */,
 				B29969C1163A333900E146E8 /* MainMenu.xib in Resources */,
+				B2544419163E175000955CBC /* GPMainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +330,7 @@
 				B29969BE163A333900E146E8 /* GPAppDelegate.m in Sources */,
 				B29969E8163A35CC00E146E8 /* iTunes.app in Sources */,
 				B20DDB51163B5B8E00324675 /* GPMainView.m in Sources */,
+				B2544416163E16BE00955CBC /* GPMainWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,8 +443,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
+				GCC_UNROLL_LOOPS = YES;
 				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -446,8 +458,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
+				GCC_UNROLL_LOOPS = YES;
 				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";

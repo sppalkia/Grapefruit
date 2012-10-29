@@ -1,19 +1,15 @@
 //
-//  GPMainView.m
+//  GPMainWindowController.m
 //  Grapefruit
 //
-//  Created by Shoumik Palkar on 10/26/12.
+//  Created by Shoumik Palkar on 10/28/12.
 //  Copyright (c) 2012 Shoumik Palkar. All rights reserved.
 //
 
-#import <CoreServices/CoreServices.h>
-#import "GPMainView.h"
+#import "GPMainWindowController.h"
+#import "iTunes.h"
 
-@interface GPMainView(Obesrvers)
--(void)applicationWillResignActive:(NSNotification *)notification;
-@end
-
-@implementation GPMainView
+@implementation GPMainWindowController
 @synthesize searchField;
 @synthesize resultsView;
 
@@ -22,7 +18,6 @@
 }
 
 -(void)awakeFromNib {
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)
                                                  name:NSApplicationWillResignActiveNotification
                                                object:nil];
@@ -79,7 +74,7 @@
     
     [_searchOperationQueue cancelAllOperations];
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performSearch) object:nil];
-    [_searchOperationQueue addOperation:operation];    
+    [_searchOperationQueue addOperation:operation];
 }
 
 #pragma mark - NSTextFieldDelegate
@@ -101,12 +96,12 @@
         SBElementArray *tracksWithOurTitle = (SBElementArray *)[[[_library playlists] objectAtIndex:0] searchFor:[textView string] only:iTunesESrAAll];
         
         if ([tracksWithOurTitle count] > 0) {
-            iTunesTrack *track = [tracksWithOurTitle objectAtIndex:0];            
+            iTunesTrack *track = [tracksWithOurTitle objectAtIndex:0];
             [track playOnce:YES];
         }
         handle = YES;
     }
-
+    
     return handle;
 }
 
@@ -132,7 +127,7 @@
     if ([identifier isEqualToString:@"MainCell"]) {
         cellView = [tableView makeViewWithIdentifier:identifier owner:self];
         cellView.textField.stringValue = @"Hello World";
-
+        
     }
     else {
         NSAssert1(NO, @"Unhandled table column identifier: %@", identifier);
@@ -146,6 +141,5 @@
     [_searchOperationQueue release];
     [super dealloc];
 }
-
 
 @end
