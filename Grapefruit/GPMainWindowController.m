@@ -21,7 +21,7 @@
 @synthesize resultsContainerView;
 
 #define MAX_SEARCH_RESULTS         10
-#define MINIMUM_WINDOW_HEIGHT      42
+#define MINIMUM_WINDOW_HEIGHT      300
 #define MINIMUM_TABLE_HEIGHT       140
 
 -(void)applicationWillResignActive:(NSNotification *)notification {
@@ -97,7 +97,6 @@
 }
 
 -(void)search {
-    NSLogDebug(@"");
     [self validateLibrary];
     
     [_searchOperationQueue cancelAllOperations];
@@ -207,7 +206,19 @@
         
         NSString *trackName;
         if ([_searchResults count] > row) {
-            trackName = [[_searchResults objectAtIndex:row] name];
+            iTunesTrack *track = [_searchResults objectAtIndex:row];
+            trackName = [track name];
+            
+            /*
+            if ([track.artworks  count] > 0) {
+                NSData *data = [[track.artworks objectAtIndex:0] rawData];
+                NSImage *image = [[NSImage alloc] initWithData:data];
+                if (data != nil)
+                    cellView.imageView.objectValue = image;
+                [image release];
+            }
+            */
+                        
             [cellView setBackgroundStyle:NSBackgroundStyleDark];
             
         }
@@ -225,7 +236,7 @@
 }
 
 -(CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    return 30;
+    return 60;
 }
 
 
