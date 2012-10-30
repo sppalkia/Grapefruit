@@ -16,6 +16,8 @@
 
     
     NSTableView *resultsView;
+    NSInteger previousSelectedIndex;
+    NSUInteger previousSearchID;
     
 }
 

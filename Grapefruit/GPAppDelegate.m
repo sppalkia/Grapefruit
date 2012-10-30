@@ -47,6 +47,7 @@ OSStatus keystrokeActivated(EventHandlerCallRef nextHandler, EventRef
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
+    
     this = self;
     
     _mainWindowController = [[GPMainWindowController alloc] initWithWindowNibName:@"GPMainWindow"];

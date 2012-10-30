@@ -150,14 +150,13 @@
 											<string key="NSFrameSize">{594, 38}</string>
 											<reference key="NSSuperview" ref="882002794"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="369824840"/>
+											<reference key="NSNextKeyView" ref="217254379"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<bool key="NSControlAllowsExpansionToolTips">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="1025543173">
 												<reference key="NSNextResponder" ref="203675106"/>
-												<int key="NSvFlags">256</int>
 												<string key="NSFrameSize">{594, 17}</string>
 												<reference key="NSSuperview" ref="203675106"/>
 												<reference key="NSWindow"/>
@@ -253,6 +252,7 @@
 											<int key="NSDraggingSourceMaskForLocal">15</int>
 											<int key="NSDraggingSourceMaskForNonLocal">0</int>
 											<bool key="NSAllowsTypeSelect">YES</bool>
+											<int key="NSTableViewSelectionHighlightStyle">1</int>
 											<int key="NSTableViewDraggingDestinationStyle">1</int>
 											<int key="NSTableViewGroupRowStyle">1</int>
 										</object>
@@ -313,7 +313,7 @@
 							<string key="NSFrame">{{-1, -1}, {596, 56}}</string>
 							<reference key="NSSuperview" ref="291868197"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="217254379"/>
+							<reference key="NSNextKeyView" ref="882002794"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSHuggingPriority">{250, 250}</string>
 							<int key="NSsFlags">133122</int>
@@ -401,7 +401,7 @@
 						<string key="label">imageView</string>
 						<object class="NSTableCellView" key="source" id="369824840">
 							<nil key="NSNextResponder"/>
-							<int key="NSvFlags">274</int>
+							<int key="NSvFlags">18</int>
 							<array class="NSMutableArray" key="NSSubviews">
 								<object class="NSImageView" id="605839941">
 									<reference key="NSNextResponder" ref="369824840"/>

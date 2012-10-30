@@ -27,6 +27,7 @@
 -(void)applicationWillResignActive:(NSNotification *)notification {
     [self.searchField setStringValue:@""];
     [_searchResults removeAllObjects];
+    [self.resultsView reloadData];
 }
 
 -(void)awakeFromNib {
@@ -121,9 +122,13 @@
 -(void)updateResultsView:(SBElementArray *)results {
     [_searchResults removeAllObjects];
     [_searchResults addObjectsFromArray:results];
-    NSLogDebug(@"%@", [_searchResults description]);
-    //NSLogDebug(@"results: %lu, height: %f", [_searchResults count], self.resultsContainerView.contentView.documentRect.size.height);
     [self.resultsView reloadData];
+    
+    if ([_searchResults count] > 0) {
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+        [self.resultsView selectRowIndexes:indexSet byExtendingSelection:NO];
+    }
+
     //[self updateWindowSize];
 }
 
@@ -140,24 +145,30 @@
         handle = YES;
     }
     else if (command == @selector(insertNewline:)) {
-        
-        [self validateLibrary];
-        if ([_searchResults count] > 0) {
-            iTunesTrack *track = [_searchResults objectAtIndex:0];
-            [track playOnce:YES];
+        NSInteger selectedRow = [self.resultsView selectedRow];
+        if ([_searchResults count] > selectedRow && selectedRow >= 0) {
+            [self validateLibrary];
+            if ([_searchResults count] > 0) {
+                iTunesTrack *track = [_searchResults objectAtIndex:selectedRow];
+                [track playOnce:YES];
+            }
         }
         handle = YES;
     }
     else if (command == @selector(moveDown:)) {
-        if ([_searchResults count] > 0) {
-            //select the second row; first row is selected by default
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+        NSInteger selectedRow = [self.resultsView selectedRow];
+        if ([_searchResults count] > selectedRow) {
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:selectedRow+1];
             [self.resultsView selectRowIndexes:indexSet byExtendingSelection:NO];
         }
         handle = YES;
     }
     else if (command == @selector(moveUp:)) {
-        //override default behavior of moving to the beginning
+        NSInteger selectedRow = [self.resultsView selectedRow];
+        if (selectedRow > 0) {
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:selectedRow-1];
+            [self.resultsView selectRowIndexes:indexSet byExtendingSelection:NO];
+        }
         handle = YES;
     }
     
