@@ -20,12 +20,13 @@
 @synthesize resultsView;
 @synthesize resultsContainerView;
 
-#define MAX_SEARCH_RESULTS      10
-#define MINIMUM_WINDOW_HEIGHT   42
-#define MINIMUM_TABLE_HEIGHT    140
+#define MAX_SEARCH_RESULTS         10
+#define MINIMUM_WINDOW_HEIGHT      42
+#define MINIMUM_TABLE_HEIGHT       140
 
 -(void)applicationWillResignActive:(NSNotification *)notification {
     [self.searchField setStringValue:@""];
+    [_searchResults removeAllObjects];
 }
 
 -(void)awakeFromNib {
@@ -40,7 +41,7 @@
         [searchCell setAction:@selector(search)];
     }
     
-    _searchResults = [[NSMutableArray alloc] initWithCapacity:MAX_SEARCH_RESULTS];
+    _searchResults = [[NSMutableArray alloc] init];
     
     
     _searchOperationQueue = [[NSOperationQueue alloc] init];
@@ -56,11 +57,11 @@
 }
 
 -(void)updateWindowSize {
-    CGFloat adjustSize = self.resultsContainerView.contentView.documentRect.size.height;
+    CGFloat adjustSize = self.resultsContainerView.contentView.frame.size.height;
     CGRect newFrame = CGRectMake(self.window.frame.origin.x,
                                  self.window.frame.origin.y,
                                  self.window.frame.size.width,
-                                 self.window.frame.size.height + 100);
+                                 MINIMUM_WINDOW_HEIGHT + MINIMUM_TABLE_HEIGHT*2 + adjustSize);
     [self.window setFrame:NSRectFromCGRect(newFrame) display:YES];
 
 }
@@ -95,6 +96,7 @@
 }
 
 -(void)search {
+    NSLogDebug(@"");
     [self validateLibrary];
     
     [_searchOperationQueue cancelAllOperations];
@@ -119,8 +121,10 @@
 -(void)updateResultsView:(SBElementArray *)results {
     [_searchResults removeAllObjects];
     [_searchResults addObjectsFromArray:results];
-    NSLogDebug(@"results: %lu, height: %f", [_searchResults count], self.resultsContainerView.contentView.documentRect.size.height);
+    NSLogDebug(@"%@", [_searchResults description]);
+    //NSLogDebug(@"results: %lu, height: %f", [_searchResults count], self.resultsContainerView.contentView.documentRect.size.height);
     [self.resultsView reloadData];
+    //[self updateWindowSize];
 }
 
 
@@ -128,7 +132,7 @@
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
     
-    NSLogDebug(@"%@", NSStringFromSelector(command));
+    //NSLogDebug(@"%@", NSStringFromSelector(command));
     
     BOOL handle = NO;
     if (command == @selector(cancelOperation:)) {
@@ -138,14 +142,22 @@
     else if (command == @selector(insertNewline:)) {
         
         [self validateLibrary];
-        
-        //Header file is wrong here; this function does return a SBElementArray. Cast to surpress warning.
-        SBElementArray *tracksWithOurTitle = (SBElementArray *)[[[_library playlists] objectAtIndex:0] searchFor:[textView string] only:iTunesESrAAll];
-        
-        if ([tracksWithOurTitle count] > 0) {
-            iTunesTrack *track = [tracksWithOurTitle objectAtIndex:0];
+        if ([_searchResults count] > 0) {
+            iTunesTrack *track = [_searchResults objectAtIndex:0];
             [track playOnce:YES];
         }
+        handle = YES;
+    }
+    else if (command == @selector(moveDown:)) {
+        if ([_searchResults count] > 0) {
+            //select the second row; first row is selected by default
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
+            [self.resultsView selectRowIndexes:indexSet byExtendingSelection:NO];
+        }
+        handle = YES;
+    }
+    else if (command == @selector(moveUp:)) {
+        //override default behavior of moving to the beginning
         handle = YES;
     }
     
@@ -165,20 +177,33 @@
 
 #pragma mark - NSTableViewDelegate
 
+- (IBAction)tableViewSelected:(id)sender {
+    NSInteger row = [sender selectedRow];
+    if ([_searchResults count] > row) {
+        [self validateLibrary];
+        iTunesTrack *track = [_searchResults objectAtIndex:row];
+        [track playOnce:YES];
+    }
+}
+
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
     NSTableCellView *cellView;
     NSString *identifier = [tableColumn identifier];
     
     if ([identifier isEqualToString:@"MainCell"]) {
+        cellView = [tableView makeViewWithIdentifier:identifier owner:self];
+        
         NSString *trackName;
         if ([_searchResults count] > row) {
             trackName = [[_searchResults objectAtIndex:row] name];
+            [cellView setBackgroundStyle:NSBackgroundStyleDark];
+            
         }
         else {
             trackName = @"Changing too fast!";
         }
-        cellView = [tableView makeViewWithIdentifier:identifier owner:self];
+
         cellView.textField.stringValue = trackName;
         
     }
@@ -186,6 +211,10 @@
         NSAssert1(NO, @"Unhandled table column identifier: %@", identifier);
     }
     return cellView;
+}
+
+-(CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+    return 30;
 }
 
 
