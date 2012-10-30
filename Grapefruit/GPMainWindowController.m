@@ -9,9 +9,20 @@
 #import "GPMainWindowController.h"
 #import "iTunes.h"
 
+@interface GPMainWindowController(Search)
+-(void)validateLibrary;
+-(void)search;
+-(void)searchResultsForString:(NSString *)string;
+@end
+
 @implementation GPMainWindowController
 @synthesize searchField;
 @synthesize resultsView;
+@synthesize resultsContainerView;
+
+#define MAX_SEARCH_RESULTS      10
+#define MINIMUM_WINDOW_HEIGHT   42
+#define MINIMUM_TABLE_HEIGHT    140
 
 -(void)applicationWillResignActive:(NSNotification *)notification {
     [self.searchField setStringValue:@""];
@@ -29,6 +40,9 @@
         [searchCell setAction:@selector(search)];
     }
     
+    _searchResults = [[NSMutableArray alloc] initWithCapacity:MAX_SEARCH_RESULTS];
+    
+    
     _searchOperationQueue = [[NSOperationQueue alloc] init];
     [_searchOperationQueue setMaxConcurrentOperationCount:1];
     
@@ -36,7 +50,23 @@
     
     [self.resultsView setDelegate:self];
     [self.resultsView setDataSource:self];
+    
+    
     //[self.resultsView reloadData];
+}
+
+-(void)updateWindowSize {
+    CGFloat adjustSize = self.resultsContainerView.contentView.documentRect.size.height;
+    CGRect newFrame = CGRectMake(self.window.frame.origin.x,
+                                 self.window.frame.origin.y,
+                                 self.window.frame.size.width,
+                                 self.window.frame.size.height + 100);
+    [self.window setFrame:NSRectFromCGRect(newFrame) display:YES];
+
+}
+
+- (void)windowDidLoad {
+    [self updateWindowSize];
 }
 
 #pragma mark - Search Logic
@@ -64,18 +94,35 @@
     }
 }
 
--(SBElementArray *)performSearch {
-    //Header file is wrong here; this function does return a SBElementArray. Cast to surpress warning.
-    return (SBElementArray *)[[[_library playlists] objectAtIndex:0] searchFor:[self.searchField stringValue] only:iTunesESrAAll];
-}
-
 -(void)search {
     [self validateLibrary];
     
     [_searchOperationQueue cancelAllOperations];
-    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(performSearch) object:nil];
-    [_searchOperationQueue addOperation:operation];
+    NSInvocationOperation *searchOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(searchResultsForString:) object:[self.searchField stringValue]];
+    [_searchOperationQueue addOperation:searchOperation];
+    
+    [searchOperation release];
 }
+
+-(void)searchResultsForString:(NSString *)string {
+    
+    //Header file is wrong here; this function does return a SBElementArray. Cast to surpress warning.
+    SBElementArray *results = (SBElementArray *)[[[_library playlists] objectAtIndex:0] searchFor:string only:iTunesESrAAll];
+    
+    NSUInteger resultCount = [results count];
+    resultCount = (resultCount <= MAX_SEARCH_RESULTS) ? resultCount : MAX_SEARCH_RESULTS;
+    
+    SBElementArray *truncatedResults = (SBElementArray *)[results subarrayWithRange:NSMakeRange(0, resultCount)];
+    [self performSelectorOnMainThread:@selector(updateResultsView:) withObject:truncatedResults waitUntilDone:NO];
+}
+
+-(void)updateResultsView:(SBElementArray *)results {
+    [_searchResults removeAllObjects];
+    [_searchResults addObjectsFromArray:results];
+    NSLogDebug(@"results: %lu, height: %f", [_searchResults count], self.resultsContainerView.contentView.documentRect.size.height);
+    [self.resultsView reloadData];
+}
+
 
 #pragma mark - NSTextFieldDelegate
 
@@ -108,7 +155,7 @@
 #pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
-    return 3;
+    return [_searchResults count];
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id < NSDraggingInfo >)info row:(NSInteger)row
@@ -122,11 +169,17 @@
     
     NSTableCellView *cellView;
     NSString *identifier = [tableColumn identifier];
-    NSLogDebug(@"%@", identifier);
     
     if ([identifier isEqualToString:@"MainCell"]) {
+        NSString *trackName;
+        if ([_searchResults count] > row) {
+            trackName = [[_searchResults objectAtIndex:row] name];
+        }
+        else {
+            trackName = @"Changing too fast!";
+        }
         cellView = [tableView makeViewWithIdentifier:identifier owner:self];
-        cellView.textField.stringValue = @"Hello World";
+        cellView.textField.stringValue = trackName;
         
     }
     else {
@@ -139,6 +192,8 @@
 -(void)dealloc {
     [_searchOperationQueue cancelAllOperations];
     [_searchOperationQueue release];
+    [_searchResults removeAllObjects];
+    [_searchResults release];
     [super dealloc];
 }
 
