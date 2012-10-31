@@ -21,7 +21,7 @@
     
 }
 
-@property(assign) IBOutlet NSSearchField *searchField;
+@property(assign) IBOutlet NSTextField *searchField;
 @property(assign) IBOutlet NSScrollView *resultsContainerView;
 @property(assign) IBOutlet NSTableView *resultsView;
 

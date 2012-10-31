@@ -7,6 +7,7 @@
 //
 
 #import "GPMainWindowController.h"
+#import "GPResultTableCellView.h"
 #import "iTunes.h"
 
 @interface GPMainWindowController(Search)
@@ -36,11 +37,6 @@
                                                object:nil];
     
     self.searchField.delegate = self;
-    if ( [searchField respondsToSelector:@selector(setRecentSearches:)] ) {
-        id searchCell = [searchField cell];
-        [searchCell setSendsSearchStringImmediately:YES];
-        [searchCell setAction:@selector(search)];
-    }
     
     _searchResults = [[NSMutableArray alloc] init];
     
@@ -68,6 +64,12 @@
 }
 
 - (void)windowDidLoad {
+    [self.window setBackgroundColor:[NSColor darkGrayColor]];
+    NSTextView *fieldEditor = (NSTextView *)[self.window fieldEditor:YES
+                                                     forObject:self.searchField];
+    
+    fieldEditor.insertionPointColor = [NSColor whiteColor];
+
     [self updateWindowSize];
 }
 
@@ -87,7 +89,6 @@
         SBElementArray *iTunesSources = [iTunesApp sources];
         for (iTunesSource *thisSource in iTunesSources) {
             if ([thisSource kind] == iTunesESrcLibrary) {
-                NSLogDebug(@"library was validated");
                 _library = thisSource;
                 [_library retain];
                 break;
@@ -133,6 +134,12 @@
 
 
 #pragma mark - NSTextFieldDelegate
+
+- (void)controlTextDidChange:(NSNotification *)aNotification {
+    if([aNotification object] == self.searchField) {
+        [self search];
+    }
+}
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
     
@@ -198,18 +205,20 @@
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
-    NSTableCellView *cellView;
+    GPResultTableCellView *cellView;
     NSString *identifier = [tableColumn identifier];
     
     if ([identifier isEqualToString:@"MainCell"]) {
-        cellView = [tableView makeViewWithIdentifier:identifier owner:self];
+        cellView = (GPResultTableCellView *)[tableView makeViewWithIdentifier:identifier owner:self];
         
         NSString *trackName;
+        NSString *artistName;
         if ([_searchResults count] > row) {
             iTunesTrack *track = [_searchResults objectAtIndex:row];
             trackName = [track name];
+            artistName = [track artist];
             
-            /*
+            
             if ([track.artworks  count] > 0) {
                 NSData *data = [[track.artworks objectAtIndex:0] rawData];
                 NSImage *image = [[NSImage alloc] initWithData:data];
@@ -217,16 +226,18 @@
                     cellView.imageView.objectValue = image;
                 [image release];
             }
-            */
+            
                         
             [cellView setBackgroundStyle:NSBackgroundStyleDark];
             
         }
         else {
-            trackName = @"Changing too fast!";
+            trackName = @"Not a Real Song!";
+            artistName = @"Shoumik Palkar";
         }
 
         cellView.textField.stringValue = trackName;
+        cellView.detailTextField.stringValue = artistName;
         
     }
     else {
@@ -238,7 +249,6 @@
 -(CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     return 60;
 }
-
 
 -(void)dealloc {
     [_searchOperationQueue cancelAllOperations];
