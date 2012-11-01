@@ -8,6 +8,7 @@
 
 #import "GPMainWindowController.h"
 #import "GPResultTableCellView.h"
+#import "GPAppDelegate.h"
 #import "iTunes.h"
 
 @interface GPMainWindowController(Search)
@@ -22,8 +23,10 @@
 @synthesize resultsContainerView;
 
 #define MAX_SEARCH_RESULTS         10
-#define MINIMUM_WINDOW_HEIGHT      300
-#define MINIMUM_TABLE_HEIGHT       140
+#define OFFSET                     10
+
+static const CGFloat kRowHeight = 60.0f;
+
 
 -(void)applicationWillResignActive:(NSNotification *)notification {
     [self.searchField setStringValue:@""];
@@ -48,28 +51,48 @@
     
     [self.resultsView setDelegate:self];
     [self.resultsView setDataSource:self];
-    
-    
-    //[self.resultsView reloadData];
+}
+
+-( void )scaleWindowForHeight:(CGFloat)height
+{
+    if (height > OFFSET*2 + self.searchField.frame.size.height) {
+        NSWindow* window = [self window];
+        NSRect old_window_frame = [window frame];
+        NSRect old_content_rect = [window contentRectForFrameRect: old_window_frame];
+        NSSize new_content_size = NSMakeSize( old_window_frame.size.width, height );
+        // need to move window by Y-axis because NSWindow origin point is at lower side:
+        NSRect new_content_rect = NSMakeRect( NSMinX( old_content_rect ),
+                                             NSMaxY( old_content_rect ) - new_content_size.height,
+                                             new_content_size.width,
+                                             new_content_size.height );
+        
+        NSRect new_window_frame = [window frameRectForContentRect: new_content_rect];
+        [window setFrame: new_window_frame  display:YES  animate:NO];
+    }
+    else {
+        NSLogDebug(@"Window Size too Small");
+    }
 }
 
 -(void)updateWindowSize {
-    CGFloat adjustSize = self.resultsContainerView.contentView.frame.size.height;
-    CGRect newFrame = CGRectMake(self.window.frame.origin.x,
-                                 self.window.frame.origin.y,
-                                 self.window.frame.size.width,
-                                 MINIMUM_WINDOW_HEIGHT + MINIMUM_TABLE_HEIGHT*2 + adjustSize);
-    [self.window setFrame:NSRectFromCGRect(newFrame) display:YES];
-
+    NSUInteger count = [_searchResults count]+1;
+    CGFloat adjustedRowHeight = kRowHeight + OFFSET/(count*2);
+    CGFloat newWindowHeight = adjustedRowHeight*count + OFFSET*2 + self.searchField.frame.size.height;
+    [self scaleWindowForHeight:newWindowHeight];
+    
 }
 
 - (void)windowDidLoad {
+    [self setShouldCascadeWindows:NO];
+    
+    NSRect screenRect = [[NSScreen mainScreen] frame];
+    [self.window setFrameOrigin:NSMakePoint(NSMidX(screenRect), NSMidY(screenRect))];
+    [self.window center];
     [self.window setBackgroundColor:[NSColor darkGrayColor]];
     NSTextView *fieldEditor = (NSTextView *)[self.window fieldEditor:YES
                                                      forObject:self.searchField];
     
     fieldEditor.insertionPointColor = [NSColor whiteColor];
-
     [self updateWindowSize];
 }
 
@@ -129,7 +152,7 @@
         [self.resultsView selectRowIndexes:indexSet byExtendingSelection:NO];
     }
 
-    //[self updateWindowSize];
+    [self updateWindowSize];
 }
 
 
@@ -157,6 +180,7 @@
             if ([_searchResults count] > 0) {
                 iTunesTrack *track = [_searchResults objectAtIndex:selectedRow];
                 [track playOnce:YES];
+                [GPAppDelegate toggleState:GPApplicationStateInactive];
             }
         }
         handle = YES;
@@ -218,7 +242,7 @@
             trackName = [track name];
             artistName = [track artist];
             
-            
+#warning Slow image load here: fix it by spawning a new thread to do the load
             if ([track.artworks  count] > 0) {
                 NSData *data = [[track.artworks objectAtIndex:0] rawData];
                 NSImage *image = [[NSImage alloc] initWithData:data];
@@ -247,7 +271,7 @@
 }
 
 -(CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    return 60;
+    return kRowHeight;
 }
 
 -(void)dealloc {

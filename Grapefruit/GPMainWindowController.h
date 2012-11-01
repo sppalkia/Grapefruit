@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GPResultsTableView.h"
 
 @class iTunesSource, SBElementArray;
 @interface GPMainWindowController : NSWindowController <NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate> {
@@ -15,15 +16,15 @@
     NSMutableArray *_searchResults;
 
     
-    NSTableView *resultsView;
+    GPResultsTableView *resultsView;
     NSInteger previousSelectedIndex;
     NSUInteger previousSearchID;
-    
+        
 }
 
 @property(assign) IBOutlet NSTextField *searchField;
 @property(assign) IBOutlet NSScrollView *resultsContainerView;
-@property(assign) IBOutlet NSTableView *resultsView;
+@property(assign) IBOutlet GPResultsTableView *resultsView;
 
 -(void)validateLibrary;
 -(void)search;
