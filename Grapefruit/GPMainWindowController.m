@@ -8,6 +8,7 @@
 
 #import "GPMainWindowController.h"
 #import "GPResultTableCellView.h"
+#import "GPResultTableRowView.h"
 #import "GPAppDelegate.h"
 #import "iTunes.h"
 
@@ -29,9 +30,14 @@ static const CGFloat kRowHeight = 60.0f;
 
 
 -(void)applicationWillResignActive:(NSNotification *)notification {
+    
+    [_searchOperationQueue cancelAllOperations];
+    
     [self.searchField setStringValue:@""];
     [_searchResults removeAllObjects];
     [self.resultsView reloadData];
+    
+    [self updateWindowSize];
 }
 
 -(void)awakeFromNib {
@@ -55,7 +61,7 @@ static const CGFloat kRowHeight = 60.0f;
 
 -( void )scaleWindowForHeight:(CGFloat)height
 {
-    if (height > OFFSET*2 + self.searchField.frame.size.height) {
+    if (height >= OFFSET*2 + self.searchField.frame.size.height) {
         NSWindow* window = [self window];
         NSRect old_window_frame = [window frame];
         NSRect old_content_rect = [window contentRectForFrameRect: old_window_frame];
@@ -76,23 +82,23 @@ static const CGFloat kRowHeight = 60.0f;
 
 -(void)updateWindowSize {
     NSUInteger count = [_searchResults count]+1;
-    CGFloat adjustedRowHeight = kRowHeight + OFFSET/(count*2);
-    CGFloat newWindowHeight = adjustedRowHeight*count + OFFSET*2 + self.searchField.frame.size.height;
+    CGFloat adjustedRowHeight = count == 1 ? 10 : kRowHeight;
+    
+    //this formula is arbitrary...see if can make more predictable
+    CGFloat newWindowHeight = adjustedRowHeight*count + OFFSET*2 + self.searchField.frame.size.height - adjustedRowHeight/3;
     [self scaleWindowForHeight:newWindowHeight];
     
 }
 
 - (void)windowDidLoad {
     [self setShouldCascadeWindows:NO];
-    
-    NSRect screenRect = [[NSScreen mainScreen] frame];
-    [self.window setFrameOrigin:NSMakePoint(NSMidX(screenRect), NSMidY(screenRect))];
     [self.window center];
     [self.window setBackgroundColor:[NSColor darkGrayColor]];
     NSTextView *fieldEditor = (NSTextView *)[self.window fieldEditor:YES
-                                                     forObject:self.searchField];
+                                                           forObject:self.searchField];
     
     fieldEditor.insertionPointColor = [NSColor whiteColor];
+    
     [self updateWindowSize];
 }
 
@@ -132,17 +138,32 @@ static const CGFloat kRowHeight = 60.0f;
 
 -(void)searchResultsForString:(NSString *)string {
     
-    //Header file is wrong here; this function does return a SBElementArray. Cast to surpress warning.
-    SBElementArray *results = (SBElementArray *)[[[_library playlists] objectAtIndex:0] searchFor:string only:iTunesESrAAll];
+    @autoreleasepool {
+        //Header file is wrong here; this function does return a SBElementArray. Cast to surpress warning.
+        SBElementArray *results = (SBElementArray *)[[[_library playlists] objectAtIndex:0] searchFor:string only:iTunesESrAAll];
+        
+        NSUInteger resultCount = [results count];
+        resultCount = (resultCount <= MAX_SEARCH_RESULTS) ? resultCount : MAX_SEARCH_RESULTS;
+        
+        SBElementArray *truncatedResults = (SBElementArray *)[results subarrayWithRange:NSMakeRange(0, resultCount)];
+        [self performSelectorOnMainThread:@selector(updateResultsView:) withObject:truncatedResults waitUntilDone:NO];
+    }
     
-    NSUInteger resultCount = [results count];
-    resultCount = (resultCount <= MAX_SEARCH_RESULTS) ? resultCount : MAX_SEARCH_RESULTS;
-    
-    SBElementArray *truncatedResults = (SBElementArray *)[results subarrayWithRange:NSMakeRange(0, resultCount)];
-    [self performSelectorOnMainThread:@selector(updateResultsView:) withObject:truncatedResults waitUntilDone:NO];
 }
 
 -(void)updateResultsView:(SBElementArray *)results {
+    
+    NSUInteger tmp = 0;
+    for (iTunesTrack *track in results) {
+        tmp += track.id;
+    }
+    
+    if (tmp == previousSearchID) {
+        return;
+    }
+    
+    previousSearchID = tmp;
+    
     [_searchResults removeAllObjects];
     [_searchResults addObjectsFromArray:results];
     [self.resultsView reloadData];
@@ -151,8 +172,12 @@ static const CGFloat kRowHeight = 60.0f;
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:0];
         [self.resultsView selectRowIndexes:indexSet byExtendingSelection:NO];
     }
-
+    
     [self updateWindowSize];
+}
+
+-(NSImage *)loadImage:(NSData *)rawData {
+    return [[[NSImage alloc] initWithData:rawData] autorelease];
 }
 
 
@@ -179,7 +204,7 @@ static const CGFloat kRowHeight = 60.0f;
             [self validateLibrary];
             if ([_searchResults count] > 0) {
                 iTunesTrack *track = [_searchResults objectAtIndex:selectedRow];
-                [track playOnce:YES];
+                [track playOnce:NO];
                 [GPAppDelegate toggleState:GPApplicationStateInactive];
             }
         }
@@ -223,7 +248,7 @@ static const CGFloat kRowHeight = 60.0f;
     if ([_searchResults count] > row) {
         [self validateLibrary];
         iTunesTrack *track = [_searchResults objectAtIndex:row];
-        [track playOnce:YES];
+        [track playOnce:NO];
     }
 }
 
@@ -237,37 +262,58 @@ static const CGFloat kRowHeight = 60.0f;
         
         NSString *trackName;
         NSString *artistName;
+        
+        [cellView setBackgroundStyle:NSBackgroundStyleDark];
+        
         if ([_searchResults count] > row) {
             iTunesTrack *track = [_searchResults objectAtIndex:row];
             trackName = [track name];
             artistName = [track artist];
             
-#warning Slow image load here: fix it by spawning a new thread to do the load
-            if ([track.artworks  count] > 0) {
-                NSData *data = [[track.artworks objectAtIndex:0] rawData];
-                NSImage *image = [[NSImage alloc] initWithData:data];
-                if (data != nil)
-                    cellView.imageView.objectValue = image;
-                [image release];
-            }
+            cellView.textField.stringValue = trackName;
+            cellView.detailTextField.stringValue = artistName;
             
-                        
-            [cellView setBackgroundStyle:NSBackgroundStyleDark];
+            
+            
+            dispatch_queue_t queue = dispatch_queue_create("CellLoadQueue", DISPATCH_QUEUE_CONCURRENT);
+            dispatch_async(queue, ^{
+                
+                NSImage *image = nil;
+                
+                if ([track.artworks  count] > 0) {
+                    NSData *data = [[track.artworks objectAtIndex:0] rawData];
+                    image = [[NSImage alloc] initWithData:data];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([tableView rowForView:cellView] == row) {
+                        if (image != nil) {
+                            cellView.imageView.objectValue = image;
+                            [image release];
+                        }
+                    }
+                });
+            });
+            dispatch_release(queue);
             
         }
         else {
-            trackName = @"Not a Real Song!";
-            artistName = @"Shoumik Palkar";
+            cellView.textField.stringValue = @"Not a Real Song";
+            cellView.detailTextField.stringValue = @"Shoumik Palkar";
         }
-
-        cellView.textField.stringValue = trackName;
-        cellView.detailTextField.stringValue = artistName;
+        
         
     }
     else {
         NSAssert1(NO, @"Unhandled table column identifier: %@", identifier);
     }
+    
     return cellView;
+}
+
+-(NSTableRowView *)tableView:(NSTableView *)tableView rowViewForRow:(NSInteger)row {
+    GPResultTableRowView *rowView = [[GPResultTableRowView alloc] initWithFrame:NSRectFromCGRect(CGRectZero)];
+    return [rowView autorelease];
 }
 
 -(CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {

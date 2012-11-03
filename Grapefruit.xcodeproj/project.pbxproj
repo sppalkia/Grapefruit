@@ -23,6 +23,7 @@
 		B29969E8163A35CC00E146E8 /* iTunes.app in Sources */ = {isa = PBXBuildFile; fileRef = B29969E6163A357600E146E8 /* iTunes.app */; };
 		B29969EF163A417400E146E8 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B29969EE163A417300E146E8 /* Carbon.framework */; };
 		B29A617F164240880097F078 /* GPResultsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A617E164240880097F078 /* GPResultsTableView.m */; };
+		B29A6187164246F30097F078 /* GPResultTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B29A6186164246F30097F078 /* GPResultTableRowView.m */; };
 		B2E37F0A1640F566001ADA35 /* GPResultTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E37F091640F566001ADA35 /* GPResultTableCellView.m */; };
 		B2E37F1216410C09001ADA35 /* CustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E37F1116410C09001ADA35 /* CustomWindow.m */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,8 @@
 		B29969EE163A417300E146E8 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		B29A617D164240880097F078 /* GPResultsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPResultsTableView.h; path = src/GPResultsTableView.h; sourceTree = "<group>"; };
 		B29A617E164240880097F078 /* GPResultsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPResultsTableView.m; path = src/GPResultsTableView.m; sourceTree = "<group>"; };
+		B29A6185164246F30097F078 /* GPResultTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPResultTableRowView.h; path = src/GPResultTableRowView.h; sourceTree = "<group>"; };
+		B29A6186164246F30097F078 /* GPResultTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPResultTableRowView.m; path = src/GPResultTableRowView.m; sourceTree = "<group>"; };
 		B2E37F081640F566001ADA35 /* GPResultTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPResultTableCellView.h; path = src/GPResultTableCellView.h; sourceTree = "<group>"; };
 		B2E37F091640F566001ADA35 /* GPResultTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPResultTableCellView.m; path = src/GPResultTableCellView.m; sourceTree = "<group>"; };
 		B2E37F1016410C09001ADA35 /* CustomWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomWindow.h; path = src/CustomWindow.h; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 		B29969DE163A336F00E146E8 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B29A6185164246F30097F078 /* GPResultTableRowView.h */,
+				B29A6186164246F30097F078 /* GPResultTableRowView.m */,
 				B2544414163E16BE00955CBC /* GPMainWindowController.h */,
 				B2544415163E16BE00955CBC /* GPMainWindowController.m */,
 				B2E37F081640F566001ADA35 /* GPResultTableCellView.h */,
@@ -343,6 +348,7 @@
 				B2E37F0A1640F566001ADA35 /* GPResultTableCellView.m in Sources */,
 				B2E37F1216410C09001ADA35 /* CustomWindow.m in Sources */,
 				B29A617F164240880097F078 /* GPResultsTableView.m in Sources */,
+				B29A6187164246F30097F078 /* GPResultTableRowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,10 +461,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
-				GCC_UNROLL_LOOPS = YES;
+				GCC_UNROLL_LOOPS = NO;
 				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,10 +476,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Grapefruit/Grapefruit-Prefix.pch";
-				GCC_UNROLL_LOOPS = YES;
+				GCC_UNROLL_LOOPS = NO;
 				INFOPLIST_FILE = "Grapefruit/Grapefruit-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";

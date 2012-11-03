@@ -17,9 +17,7 @@
 
     
     GPResultsTableView *resultsView;
-    NSInteger previousSelectedIndex;
     NSUInteger previousSearchID;
-        
 }
 
 @property(assign) IBOutlet NSTextField *searchField;
