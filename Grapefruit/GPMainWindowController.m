@@ -30,7 +30,6 @@ static const CGFloat kRowHeight = 60.0f;
 
 
 -(void)applicationWillResignActive:(NSNotification *)notification {
-    
     [_searchOperationQueue cancelAllOperations];
     
     [self.searchField setStringValue:@""];
